@@ -15,35 +15,16 @@ class FeedFragment : Fragment(R.layout.fragment_feed) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val token = arguments?.getString("token")!!
-
-        initViews(token)
+        viewModel.getFeed()
         initObserver()
-    }
-
-    private fun initViews(token: String) {
-        bt_feed_pug.setOnClickListener {
-            viewModel.getFeed(token, bt_feed_pug.text.toString())
-        }
-        bt_feed_labrador.setOnClickListener {
-            viewModel.getFeed(token, bt_feed_labrador.text.toString())
-        }
-        bt_feed_husky.setOnClickListener {
-            viewModel.getFeed(token, bt_feed_husky.text.toString())
-        }
-        bt_feed_hound.setOnClickListener {
-            viewModel.getFeed(token, bt_feed_hound.text.toString())
-        }
     }
 
     private fun initObserver() {
         viewModel.actionState.observe(viewLifecycleOwner, Observer {
             when (it) {
                 is FeedViewModel.ResponseState.feedSucess -> {
-                    val images = it.response.list
-                    if (images != null) {
-                        rv_feed.adapter = context?.let { it1 -> ImagesAdapter(images, it1) }
-                    }
+                    val itemAdress = it.response
+                    rv_feed.adapter = context?.let { it1 -> AdressAdapter(itemAdress, it1) }
                 }
                 is FeedViewModel.ResponseState.feedError -> {
                     Toast.makeText(context, it.error.toString(), Toast.LENGTH_LONG)

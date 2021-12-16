@@ -6,11 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import co.idwall.iddog.R
-import com.squareup.picasso.Picasso
+import co.idwall.iddog.domain.GuideShop
 import kotlinx.android.synthetic.main.item_feed.view.*
 
-class ImagesAdapter(
-    val items: List<String>,
+class AdressAdapter(
+    val items: List<GuideShop>,
     val context: Context
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -34,9 +34,10 @@ class ImagesAdapter(
 
     class ImagesViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val itemVieww = view
-        fun bind(image: String) {
+        fun bind(item: GuideShop) {
 
-            Picasso.get().load(image).into(itemVieww.iv_dog);
+            itemVieww.tv_name.text = item.name
+            itemVieww.tv_adress.text = item.address
         }
     }
 }

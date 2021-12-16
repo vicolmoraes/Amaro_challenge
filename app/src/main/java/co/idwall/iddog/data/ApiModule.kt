@@ -22,5 +22,5 @@ class RetrofitConfig {
         return okHttpClientBuilder.build()
     }
 
-    var call: IddogEndpoints = retrofit("https://iddog-nrizncxqba-uc.a.run.app/").create(IddogEndpoints::class.java)
+    var call: AmaroEndpoints = retrofit("https://amaro-mobile.s3.amazonaws.com/pair-programing-mock/").create(AmaroEndpoints::class.java)
 }
